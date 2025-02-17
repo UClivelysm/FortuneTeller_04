@@ -31,6 +31,13 @@ public class FortuneTellerFrame extends JFrame {
     public FortuneTellerFrame()
     {
 
+        Toolkit kit = Toolkit.getDefaultToolkit();
+        Dimension screenSize = kit.getScreenSize();
+        int screenHeight = screenSize.height;
+        int screenWidth = screenSize.width;
+// center frame in screen
+
+
         fortunes.add("You will experience a kernel panic in the middle of something important this year.");
         fortunes.add("You will encounter an unexpected EOF while reading a fortune.");
         fortunes.add("Tomorrow, your code will compile with zero warnings and errors.");
@@ -63,7 +70,10 @@ public class FortuneTellerFrame extends JFrame {
         mainPnl.add(controlPnl, BorderLayout.SOUTH);
 
         add(mainPnl);
-        setSize(600, 500);
+
+        setSize((screenWidth / 4) *3, (screenHeight / 4) *3);
+        setLocation(screenWidth / 8, screenHeight / 8);
+        //setSize(600, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
@@ -73,6 +83,7 @@ public class FortuneTellerFrame extends JFrame {
         iconPnl = new JPanel();
         icon = new ImageIcon("src/Wizard.png");
         titleLbl = new JLabel("Welcome to The Gundam Fortune Teller", icon, JLabel.CENTER);
+        titleLbl.setFont(new Font("Ubuntu", Font.PLAIN, 36));
         // Obscure code to align the text to the Icon!
         titleLbl.setVerticalTextPosition(JLabel.BOTTOM);
         titleLbl.setHorizontalTextPosition(JLabel.CENTER);
@@ -83,7 +94,10 @@ public class FortuneTellerFrame extends JFrame {
     private void createDisplayPanel()
     {
         displayPnl = new JPanel();
-        displayTA = new JTextArea(10, 45);
+        displayTA = new JTextArea(10, 86);
+        displayTA.setFont(new Font("Ubuntu Mono", Font.PLAIN, 15));
+
+
         displayTA.setEditable(false);
         scroller = new JScrollPane(displayTA);
         displayPnl.add(scroller);
@@ -96,6 +110,7 @@ public class FortuneTellerFrame extends JFrame {
         controlPnl.setLayout(new GridLayout(1, 4));
 
         fortuneBtn = new JButton("Read My Fortune!");
+        fortuneBtn.setFont(new Font("Ubuntu Bold", Font.PLAIN, 20));
         fortuneBtn.addActionListener((ActionEvent ae) ->
         {
             currentFortune = rnd.nextInt(fortunes.size());
@@ -109,6 +124,7 @@ public class FortuneTellerFrame extends JFrame {
 
 
         quitBtn = new JButton("Quit!");
+        quitBtn.setFont(new Font("Ubuntu Thin", Font.PLAIN, 20));
         quitBtn.addActionListener((ActionEvent ae) -> System.exit(0));
 
         controlPnl.add(fortuneBtn);
